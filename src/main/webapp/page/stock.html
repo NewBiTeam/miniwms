@@ -1,0 +1,173 @@
+<head>
+<meta charset="UTF-8">
+<title>库存列表</title>
+</head>
+
+<body>
+	<div class="row-fluid">
+		<h3>库存列表</h3>
+		<table id="example"
+			class="table table-striped table-bordered dt-responsive nowrap"
+			cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>创建时间</th>
+					<th>修改时间</th>
+					<th>是否锁定</th>
+					<th>商品名称</th>
+					<th>数量</th>
+					<th>最后修改人名称</th>
+					<th>公司名称</th>
+					<th>库位名称</th>
+					<th>入库单描述</th>
+					<th>UDF1</th>
+					<th>UDF2</th>
+					<th>UDF3</th>
+					<th>UDF4</th>
+					<th>UDF5</th>
+					<th>UDF6</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>ID</th>
+					<th>创建时间</th>
+					<th>修改时间</th>
+					<th>是否锁定</th>
+					<th>商品名称</th>
+					<th>数量</th>
+					<th>最后修改人名称</th>
+					<th>公司名称</th>
+					<th>库位名称</th>
+					<th>入库单描述</th>
+					<th>UDF1</th>
+					<th>UDF2</th>
+					<th>UDF3</th>
+					<th>UDF4</th>
+					<th>UDF5</th>
+					<th>UDF6</th>
+				</tr>
+			</tfoot>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+    var lang = {
+      "sProcessing" : "处理中...",
+      "sLengthMenu" : "每页 _MENU_ 项",
+      "sZeroRecords" : "没有匹配结果",
+      "sInfo" : "当前显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项。",
+      "sInfoEmpty" : "当前显示第 0 至 0 项，共 0 项",
+      "sInfoFiltered" : "(由 _MAX_ 项结果过滤)",
+      "sInfoPostFix" : "",
+      "sSearch" : "搜索:",
+      "sUrl" : "",
+      "sEmptyTable" : "表中数据为空",
+      "sLoadingRecords" : "载入中...",
+      "sInfoThousands" : ",",
+      "oPaginate" : {
+        "sFirst" : "首页",
+        "sPrevious" : "上页",
+        "sNext" : "下页",
+        "sLast" : "末页",
+        "sJump" : "跳转"
+      },
+      "oAria" : {
+        "sSortAscending" : ": 以升序排列此列",
+        "sSortDescending" : ": 以降序排列此列"
+      }
+    };
+
+    //初始化表格
+    //     $.get('/MiniWms/company/page', function(data) {
+    //       var table = $("#example").DataTable({
+    //         data : data,
+    //         "columns" : [ {
+    //           "data" : "id"
+    //         }, {
+    //           "data" : "created"
+    //         }, {
+    //           "data" : "anothername"
+    //         } ]
+    //       });
+    //     })
+
+    $('#example').DataTable({
+      "processing" : true,
+      "serverSide" : true,
+      "ajax" : '/MiniWms/stockInventory/page',
+      "columns" : [ {
+        "data" : "id"
+      }, {
+        "data" : "created",render: function(data, type, row, meta) {
+          return ((new Date(data)).toLocaleString()); //date的格式 Thu Apr 26 2016 00:00:00 GMT+0800
+        }
+      }, {
+        "data" : "modified",render: function(data, type, row, meta) {
+          return ((new Date(data)).toLocaleString()); //date的格式 Thu Apr 26 2016 00:00:00 GMT+0800
+      }
+        
+      }, {
+        "data" : "locked"
+      }, {
+        "data" : "stockItem",render: function(data) {
+          if(!data){
+            return "";
+          }else{
+            return data.name;
+          }
+        }
+         
+      }, {
+        "data" : "quantity"
+      }, {
+        "data" : "companyUser",render: function(data) {
+          if(!data){
+            return "";
+          }else{
+            return data.username;
+          }
+        }
+      }, {
+        "data" : "companyDetails",render: function(data) {
+          if(!data){
+            return "";
+          }else{
+            return data.name;
+          }
+        }
+      }, {
+        "data" : "locationDetails",render: function(data) {
+          if(!data){
+            return "";
+          }else{
+            return data.name;
+          }
+        }
+      }, {
+        "data" : "stockIn",render: function(data) {
+          if(!data){
+            return "";
+          }else{
+            return data.description;
+          }
+        }
+      }, {
+        "data" : "udf1"
+      }, {
+        "data" : "udf2"
+      }, {
+        "data" : "udf3"
+      }, {
+        "data" : "udf4"
+      }, {
+        "data" : "udf5"
+      }, {
+        "data" : "udf6"
+      } ]
+    });
+  </script>
+</body>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.ConsigneeDetailsMapper" >
+  <resultMap id="BaseResultMap" type="ndm.miniwms.pojo.ConsigneeDetails" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="modified" property="modified" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_tel" property="contactTel" jdbcType="VARCHAR" />
+    <result column="contact_fax" property="contactFax" jdbcType="VARCHAR" />
+    <result column="contact_email" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="contact_qq" property="contactQq" jdbcType="VARCHAR" />
+    <result column="contact_msn" property="contactMsn" jdbcType="VARCHAR" />
+    <result column="contact_desc" property="contactDesc" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="all" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select * from consignee_details
+  </select>
+  
+  <select id = "selectTab"  parameterType="java.lang.String"  resultMap="BaseResultMap" >
+	select * from consignee_details where 1 = 1
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Integer">
+  delete from consignee_details where id = #{id}
+  </delete>
+  
+  <insert id="add" parameterType="ndm.miniwms.pojo.ConsigneeDetails">
+  insert into consignee_details(created,modified,name,address,description,contact_name,contact_tel,contact_fax,contact_email,contact_qq,contact_msn,contact_desc,company_id)
+  values(#{created},#{modified},#{name},#{address},#{description},#{contactName},#{contactTel},#{contactFax},#{contactEmail},#{contactQq},#{contactMsn},#{contactDesc},#{companyId})
+  </insert>
+  
+  <update id="update" parameterType="ndm.miniwms.pojo.ConsigneeDetails">
+  update consignee_details
+  set created=#{created},modified=#{modified},name=#{name},
+  address=#{address},
+  description=#{description},
+  contact_name=#{contactName},
+  contact_tel=#{contactTel},
+  contact_fax=#{contactFax},
+  contact_email=#{contactEmail},
+  contact_qq=#{contactQq},
+  contact_msn=#{contactMsn},
+  company_id=#{companyId},
+  contact_desc=#{contactDesc}
+  where id = #{id}
+  </update>
+</mapper>

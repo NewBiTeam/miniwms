@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.BrandDetailsMapper" >
+ <resultMap id="BaseResultMap" type="ndm.miniwms.pojo.BrandDetails" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="modified" property="modified" jdbcType="TIMESTAMP" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 查詢公司名称 -->
+  <resultMap type="ndm.miniwms.pojo.BrandDetails" id="TabMap">
+  <id property="id" column="id" />
+  <result property="companyId" column="company_id" jdbcType="INTEGER" />
+  <collection property="companyDetails" column="company_id" select="getCompanyName">
+  </collection>
+  </resultMap>
+  
+  <select id="all" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select * from brand_details 
+  </select>
+  
+  <select id = "selectTab"  parameterType="java.lang.String"  resultMap="TabMap" >
+	select * from brand_details 
+  </select>
+  
+  <select id="getCompanyName" parameterType="java.lang.String" resultType="ndm.miniwms.pojo.CompanyDetails">
+  select * from company_details
+  </select>
+  
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select * from brand_details where id=#{id}
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Integer">
+  delete from brand_details where id = #{id}
+  </delete>
+  
+  <insert id="add" parameterType="ndm.miniwms.pojo.CompanyDetails">
+  insert into brand_details(created,modified,name,company_id)
+  values(#{created},#{modified},#{name},#{companyId})
+  </insert>
+  
+  <update id="update" parameterType="ndm.miniwms.pojo.CompanyDetails">
+  update brand_details
+  set created=#{created},modified=#{modified},name=#{name},company_id=#{companyId}
+  where id = #{id}
+  </update>
+ </mapper>

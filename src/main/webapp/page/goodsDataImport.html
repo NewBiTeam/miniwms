@@ -1,0 +1,100 @@
+
+<head>
+<meta charset="utf-8">
+<!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+<title>Simple Subscribe form - Bootsnipp.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<style type="text/css">
+section {
+	padding: 100px 0;
+	text-align: center;
+}
+
+select.frecuency {
+	border: none;
+	font-style: italic;
+	background-color: transparent;
+	cursor: pointer;
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+	-webkit-transition: -webkit-transform .35s ease-in;
+	transition: -webkit-transform .35s ease-in;
+	border-bottom: none;
+}
+
+select.frecuency:focus {
+	outline: none;
+	border-bottom: 5px solid #39b3d7;
+	-webkit-transform: translateY(-5px);
+	transform: translateY(-5px);
+	-webkit-transition: -webkit-transform .35s ease-in;
+	transition: -webkit-transform .35s ease-in;
+}
+
+.free {
+	text-transform: uppercase;
+}
+
+.input-group {
+	margin: 20px auto;
+	width: 100%;
+}
+
+input.btn.btn-lg, input.btn.btn-lg:focus {
+	outline: none;
+	width: 60%;
+	height: 60px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+button.btn {
+	width: 40%;
+	height: 60px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.promise {
+	color: #999;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="uploadify.css">
+
+<script>
+	$(function() {
+		$("#stockItem").uploadify({
+			'swf' : '/MiniWms/static/js/uploadify.swf',
+			'uploader' : '/MiniWms/batchImport2/stockItem'
+		});
+	});
+</script>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="well">
+						<form action="/MiniWms/batchImport2/stockItem" method="post"
+							enctype="multipart/form-data">
+							<div class="input-group">
+
+								<input type="file" name="stockItem" id="stockItem" />
+								
+							</div>
+						</form>
+					</div>
+					<small class="promise"><em>We won't send spam.</em></small>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.StockOutEntriesMapper">
+	<resultMap id="BaseResultMap" type="ndm.miniwms.pojo.StockOutEntries">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="out_id" property="outId" jdbcType="INTEGER" />
+		<result column="item_id" property="itemId" jdbcType="INTEGER" />
+		<result column="inventory_id" property="inventoryId" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="ndm.miniwms.pojo.StockInventory" id="ListMap">
+    <id property="id" column="id" />
+  	<result property="itemId" column="item_id" jdbcType="INTEGER" />
+  	<result property="outId" column="out_id" jdbcType="INTEGER" />
+  	<result property="inventoryId" column="inventory_id" jdbcType="INTEGER" />
+  	<collection property="stockOut" column="out_id" select="getOutId">
+  	</collection>
+  	<collection property="stockInventory" column="inventory_id" select="getInventoryId">
+  	</collection>
+  	<collection property="stockItem" column="item_id" select="getItemId">
+  	</collection>
+  	</resultMap>
+	
+	<select id="all" resultMap="BaseResultMap">
+		select * from stock_out_entries
+	</select>
+	
+	<!-- 出库对象 -->
+	<select id="getOutId" parameterType="java.lang.String" resultType="ndm.miniwms.pojo.StockOut">
+	  	select * from location_details where id = #{id}
+	</select>
+	  
+	<!--  -->
+	<select id="getInventoryId" parameterType="java.lang.String" resultType="ndm.miniwms.pojo.StockInventory">
+	  	select * from stock_inventory where id = #{id}
+	</select>
+	  
+	<!-- 商品对象 -->
+	<select id="getItemId" parameterType="java.lang.String" resultType="ndm.miniwms.pojo.StockItem">
+	 	select * from company_user where id = #{id}
+	</select>
+	
+	<select id = "selectTab" resultMap="BaseResultMap" >
+  	select * from stock_out_entries
+ 	</select>
+  
+  	<select id = "selectById" resultMap = "BaseResultMap" >
+  	select * from stock_out_entries where id = #{id}
+  	</select>
+	
+	<delete id="delById" parameterType="java.lang.Integer">
+		delete from stock_out_entries
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<update id="update" parameterType="ndm.miniwms.pojo.StockOutEntries">
+		update stock_out_entries set
+		out_id = #{outId},item_id = #{itemId},quantity = #{quantity},
+		inventory_id = #{inventoryId},UDF1 = #{UDF1},UDF2 = #{UDF2},UDF3 =
+		#{UDF3},UDF4 = #{UDF4},UDF5 = #{UDF5},UDF6 = #{UDF6} where id = #{id}
+	</update>
+
+	<insert id="add" parameterType="ndm.miniwms.pojo.StockOutEntries">
+		insert into stock_out_entries
+		(out_id,item_id,quantity,inventory_id,UDF1,
+		UDF2,UDF3,UDF4,UDF5,UDF6)
+		values (#{outId},#{itemId},#{quantity},#{inventoryId},#{UDF1},#{UDF2},
+		#{UDF3},#{UDF4},#{UDF5},#{UDF6})
+	</insert>
+</mapper>

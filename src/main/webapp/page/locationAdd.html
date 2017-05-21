@@ -1,0 +1,104 @@
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#submit').click(function() {
+      $.post('../location/add', {name: $('#name').val(),XCoord: $('#XCoord').val(),YCoord: $('#YCoord').val(),ZCoord: $('#ZCoord').val()
+      	,companyId: $('#companyId').val(),warehouseId: $('#warehouseId').val()}).done(function() {
+          location.href = 'main.html';
+      }).fail(ajaxErrorHandle);
+  })
+});
+$(document).ready(function() {
+	var jqXhr = $.get('/MiniWms/company/all').done(function(data) {
+		if (data) {
+			$.each(data, function(i, e) {
+				$option = $("<option value=" + e.id + "/>").text(e.name);
+				$option.appendTo($('#companyId'));
+			})
+		}
+	})
+});
+$(document).ready(function() {
+	var jqXhr = $.get('/MiniWms/warehouse/all').done(function(data) {
+		if (data) {
+			$.each(data, function(i, e) {
+				$option = $("<option value=" + e.id + "/>").text(e.name);
+				$option.appendTo($('#warehouseId'));
+			})
+		}
+	})
+});
+</script>
+</head>
+<body>
+<a href="main.html">首页</a>
+<div class="container">    
+            
+    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">公司信息</div>
+                <div style="float:right; font-size: 85%; position: relative; top:-10px"> <a href="#" onclick="history.go(-1);">上一页</a></div>
+            </div>  
+            <div class="panel-body" >
+                <form>
+                    <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
+                    <form>
+                        <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
+                        <div id="div_id_username" class="form-group required">
+                            <label for="name" class="control-label col-md-4  requiredField">名称<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md  textinput textInput form-control" id="name" maxlength="30" name="name" placeholder="库位名称" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_XCoord" class="form-group required">
+                            <label for="XCoord" class="control-label col-md-4  requiredField">XCoord<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md emailinput form-control" id="XCoord" name="XCoord" placeholder="XCoord" style="margin-bottom: 10px" type="text" />
+                            </div>     
+                        </div>
+                        <div id="div_id_YCoord" class="form-group required">
+                            <label for="YCoord" class="control-label col-md-4  requiredField">YCoord<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                <input class="input-md textinput textInput form-control" id="YCoord" name="YCoord" placeholder="YCoord" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_ZCoord" class="form-group required">
+                             <label for="ZCoord" class="control-label col-md-4  requiredField">ZCoord<span class="asteriskField">*</span> </label>
+                             <div class="controls col-md-8 ">
+                                <input class="input-md textinput textInput form-control" id="ZCoord" name="ZCoord" placeholder="ZCoord" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_companyId" class="form-group required"> 
+                            <label for="companyId" class="control-label col-md-4  requiredField">公司名称<span class="asteriskField">*</span> </label> 
+                            <div class="controls col-md-8 "> 
+                                <select class="input-md textinput textInput form-control" id="companyId" name="companyId" placeholder="例：某某公司" style="margin-bottom: 10px">
+                                <option>请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="div_id_warehouseId" class="form-group required"> 
+                            <label for="warehouseId" class="control-label col-md-4  requiredField">仓库名称<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <select class="input-md textinput textInput form-control" id="warehouseId" name="warehouseId" placeholder="例：某某仓库" style="margin-bottom: 10px" >
+                                 <option>请选择</option>
+                                 </select>
+                            </div>
+                        </div> 
+                        <div class="form-group"> 
+                            <div class="aab controls col-md-4 "></div>
+                            <div class="controls col-md-8 ">
+                                <input type="submit" value="提交" class="btn btn-primary btn btn-info" id="submit" />
+                            </div>
+                        </div> 
+                            
+                    </form>
+
+                </form>
+            </div>
+        </div>
+    </div> 
+</div>       
+</body>

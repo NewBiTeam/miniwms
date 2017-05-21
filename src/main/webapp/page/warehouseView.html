@@ -1,0 +1,26 @@
+<meta charset="utf-8">
+<table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+</table>
+<script>
+	$('#example').DataTable( {
+      /* "ajax": {
+      	url:"/MiniWms/batchImport/company",
+      	dataSrc:function(data){return data;}
+      }, */
+      "processing":true,
+      "serverSide":true,
+      "ajax":"/MiniWms/warehouse/page",
+      "columns" : [
+          { "data": "name" ,title:"name"},
+          { "data": "address" ,title:"address"},
+          { "data": "description" ,title:"description"},
+          { "data": "contactName" ,title:"contactName"},
+          { "data": "contactTel" ,title:"contactTel"},
+          { "data": "contactFax" ,title:"contactFax"},
+          { "data": "contactEmail" ,title:"contactEmail"},
+          { "data": "contactQq" ,title:"contactQq"},
+          { "data": "contactMsn" ,title:"contactMsn"},
+          { "data": "contactDesc" ,title:"contactDesc"}
+      ]
+  } );
+</script>

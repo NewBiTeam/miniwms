@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+	<worksheet name="工作表1">
+		<section startRow="0" endRow="1"></section>
+		<loop startRow="2"  endRow="2"  items="locationVOs"  var="locationVO"
+			varType="ndm.miniwms.vo.LocationVO">
+			<section startRow="2" endRow="2">
+				<mapping row="2" col="0">locationVO.name</mapping>
+				<mapping row="2" col="1">locationVO.XCoord</mapping>
+				<mapping row="2" col="2">locationVO.YCoord</mapping>
+				<mapping row="2" col="3">locationVO.ZCoord</mapping>
+				<mapping row="2" col="4">locationVO.companyName</mapping>
+				<mapping row="2" col="5">locationVO.warehouseName</mapping>
+			</section>
+			<loopbreakcondition>
+				<rowcheck offset="0">
+					<cellcheck offset="0"></cellcheck>
+				</rowcheck>
+			</loopbreakcondition>
+		</loop>
+	</worksheet>
+</workbook>  

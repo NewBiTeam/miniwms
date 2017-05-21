@@ -1,0 +1,75 @@
+dao层（mapper）：
+
+  all delById update add
+  xml里：BaseResultMap Base_Column_List
+  例：company_details -> ndm.miniwms.dao.CompanyDetailsMapper.java ndm.miniwms.mapping.CompanyDetailsMapper.xml
+
+Controller：
+
+  CompanyController - /company
+  UserController - /user
+  WarehouseController - /warehouse
+  LocationController - /location
+  BrandController - /brand
+  CategoryController - /category
+  SupplierController - /supplier
+  ConsigneeController - /consignee
+
+  查： /all
+  分页查询： /page
+  增：/add
+  改：/upt
+  删：/del
+  按id查询：/{id}
+
+  批量新增：
+  BatchImportController /batchImport
+    - /company
+    - /user
+    - /warehouse
+    - /location
+    - /brand
+    ...
+
+商品部分：
+  StockItemController - /stockItem
+
+  查： /all
+  分页查询： /page
+  增：/add
+  改：/upt
+  删：/del
+  按id查询：/{id}
+  上传图片：/photos/upload
+  查看图片：/photo/{id}
+
+  批量新增：
+  BatchImportController2 /batchImport2
+    - /stockItem
+
+
+用户权限部分：
+  MenuController - /menu
+  查： /all
+
+  RoleController - /role
+  查： /all
+  增：/add
+  改：/upt
+  删：/del
+  按id查询：/{id}
+
+登陆登出：
+
+  MainController - /main
+    - /login
+    - /logout
+
+  LoginFilter - 未登录，不可以访问系统接口
+
+  ndm.miniwms.exception.DuplicateNameException
+
+  ndm.miniwms.util.EntityCheckUtils
+    - check(CompanyDetails, Boolean) -名称不为空，是否有同名限制，同名则返回DuplicateNameException
+    - check(CompanyDetails) - 不验证同名限制，名称不为空
+    ... 9种

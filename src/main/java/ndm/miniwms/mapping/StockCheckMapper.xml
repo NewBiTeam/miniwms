@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.StockCheckMapper">
+
+	<resultMap id="BaseResultMap" type="ndm.miniwms.pojo.StockCheck">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="start_at" property="startAt" jdbcType="TIMESTAMP" />
+		<result column="end_at" property="endAt" jdbcType="TIMESTAMP" />
+		<result column="company_id" property="companyId" jdbcType="INTEGER" />
+		<result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="all" resultMap="BaseResultMap">
+		select * from stock_check
+	</select>
+
+	<delete id="delById" parameterType="java.lang.Integer">
+		delete from stock_check
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<update id="update" parameterType="ndm.miniwms.pojo.StockCheck">
+		update stock_check set
+		start_at = #{startAt},end_at = #{endAt},company_id = #{companyId},
+		operator_id = #{operatorId},description = #{description} where id = #{id}
+	</update>
+
+	<insert id="add" parameterType="ndm.miniwms.pojo.StockCheck">
+		insert into stock_check
+		(start_at,end_at,company_id,operator_id,description)
+		values (#{startAt},#{endAt},#{companyId},#{operatorId},#{description})
+	</insert>
+</mapper>

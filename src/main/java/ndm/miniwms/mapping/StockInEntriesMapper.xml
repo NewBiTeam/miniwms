@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.StockInEntriesMapper" >
+	<resultMap id="BaseResultMap" type="ndm.miniwms.pojo.StockInEntries" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="in_id" property="inId" jdbcType="INTEGER" />
+	    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+	    <result column="location_id" property="locationId" jdbcType="INTEGER" />
+	</resultMap>
+	
+  <select id="all" resultMap="BaseResultMap" >
+    select * from stock_in_entries
+  </select>
+  
+  <select id="selectItem" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select * from stock_in_entries where item_id = #{itemId} 
+  </select>
+  
+  <delete id="delById" parameterType="java.lang.Integer" >
+    delete from stock_in_entries where id = #{id}
+  </delete>
+  
+  <insert id="add" parameterType="ndm.miniwms.pojo.StockInEntries" >
+    insert into stock_in_entries (in_id,item_id,quantity,location_id,UDF1,UDF2,UDF3,UDF4,UDF5,UDF6)
+    values (#{inId}, #{itemId}, #{quantity},#{locationId},#{UDF1},#{UDF2},#{UDF3},#{UDF4},#{UDF5},#{UDF6})
+  </insert>
+  
+  <update id="update" parameterType="ndm.miniwms.pojo.StockInEntries">
+  	update stock_in_entries set in_id=#{inId}, item_id=#{itemId}, quantity=#{quantity},
+  	location_id=#{locationId},UDF1=#{UDF1},UDF2=#{UDF2},UDF3=#{UDF3},UDF4=#{UDF4},UDF5=#{UDF5},UDF6=#{UDF6}
+  	where id = #{id}
+  </update>
+  
+   <update id="updateQuantity" parameterType="ndm.miniwms.pojo.StockInEntries">
+  	update stock_in_entries set quantity=#{quantity}
+  	where  item_id=#{itemId}
+  </update>
+</mapper>

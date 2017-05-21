@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+<title>仓储管理</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+<link href="../static/css/dataTables.bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="../static/css/uploadify.css" rel="stylesheet"
+	media="screen">
+<link href="../static/css/jquery.dataTables.min.css" rel="stylesheet"
+	media="screen">
+<link href="../static/css/responsive.bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<style type="text/css">
+/* make sidebar nav vertical */
+@media ( min-width : 768px) {
+	.affix-content .container {
+		width: 700px;
+	}
+	html, body {
+		background-color: #f8f8f8;
+		height: 100%;
+		overflow: hidden;
+	}
+	.affix-content .container .page-header {
+		margin-top: 0;
+	}
+	.affix-sidebar {
+		padding-right: 0;
+		font-size: small;
+		padding-left: 0;
+	}
+	.affix-row, .affix-container, .affix-content {
+		height: 100%;
+		overflow: scroll;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.affix-content {
+		background-color: white;
+	}
+	.sidebar-nav .navbar .navbar-collapse {
+		padding: 0;
+		max-height: none;
+	}
+	.sidebar-nav .navbar {
+		border-radius: 0;
+		margin-bottom: 0;
+		border: 0;
+	}
+	.sidebar-nav .navbar ul {
+		float: none;
+		display: block;
+	}
+	.sidebar-nav .navbar li {
+		float: none;
+		display: block;
+	}
+	.sidebar-nav .navbar li a {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+}
+
+@media ( min-width : 769px) {
+	.affix-content .container {
+		width: 600px;
+	}
+	.affix-content .container .page-header {
+		margin-top: 0;
+	}
+}
+
+@media ( min-width : 992px) {
+	.affix-content .container {
+		width: 900px;
+	}
+	.affix-content .container .page-header {
+		margin-top: 0;
+	}
+}
+
+@media ( min-width : 1220px) {
+	.affix-row {
+	}
+	.affix-content {
+		overflow: auto;
+	}
+	.affix-content .container {
+		width: 1000px;
+	}
+	.affix-content .container .page-header {
+		margin-top: 0;
+	}
+	.affix-content {
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+	.affix-title {
+		border-bottom: 1px solid #ecf0f1;
+		padding-bottom: 10px;
+	}
+	.navbar-nav {
+		margin: 0;
+	}
+	.navbar-collapse {
+		padding: 0;
+	}
+	.sidebar-nav .navbar li a:hover {
+		background-color: #428bca;
+		color: white;
+	}
+	.sidebar-nav .navbar li a>.caret {
+		margin-top: 8px;
+	}
+}
+</style>
+<script src="../static/js/jquery-1.11.1.min.js"></script>
+<script src="../static/js/jquery.pjax.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+
+<script src="../static/js/jquery.dataTables.min.js"></script>
+<script src="../static/js/dataTables.bootstrap.min.js"></script>
+<script src="../static/js/dataTables.responsive.min.js"></script>
+<script src="../static/js/responsive.bootstrap.min.js"></script>
+<script src="../static/js/jquery.uploadify.js"></script>
+<script src="../static/js/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+		function() {
+			var jqXhr = $.get('/MiniWms/menu/all').done(
+				function(data) {
+					if (data) {
+						$.each(data, function(i, e) {
+							var $li1=null;
+							if(e.pid==null){
+								$li1=$('<li/>')
+								$span=$('<span/>').attr('class',"caret pull-right")
+								$a1 = $('<a/>').attr('href','#').attr("data-toggle","collapse").attr("data-target","#toggleDemo"+e.id).attr("data-parent","#sidenav01").attr("class","collapsed").text(e.name)
+								$li1.append($a1.append($span));
+								
+								var $div=$('<div/>').attr('class',"collapse").attr('id','toggleDemo'+e.id).attr('style','height: 0px;');
+								var $ul=$('<ul/>').attr('class','nav nav-list');
+								$.each(data, function(i, e2) {
+									if(e2.pid==e.id){
+										$a2=$('<a/>').attr('href',e2.url).text(e2.name)
+										$li=$('<li/>')
+										$div.append($ul.append($li.append($a2))).appendTo($li1)
+									}
+								});
+								$li1.appendTo($('#sidenav01'));
+							}
+						})
+					}
+					$(document).pjax('a',"#content",{push:false});
+			});
+		});
+</script>
+
+</head>
+<body>
+	<div class="row affix-row">
+	
+		<div class="col-sm-3 col-md-2 affix-sidebar">
+			<div class="sidebar-nav">
+				<div class="navbar navbar-default" role="navigation">
+					<div class="navbar-collapse collapse sidebar-navbar-collapse">
+						<ul class="nav navbar-nav" id="sidenav01">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="col-sm-9 col-md-10 affix-content">
+			<div class="container" id="content">
+				<div class="page-header">
+					<h3>
+						<span class="glyphicon glyphicon-th-list"></span> 仓储管理系统
+					</h3>
+				</div>
+				<p><h4>辅导老师：钱老师</h4></p>
+				<p><h4>开发小组人员：崔远航、赵星宇、周禹、毛超杰</h4></p><br/>
+				<p><h4>团队精神：我们需要互相帮助、互相支持、团结协作、共同发展。</h4></p><br/>
+				<p><h4>仓储管理系统基本功能:</h4></p>
+				<p><h4>&emsp;&emsp;一：公司&emsp;&emsp; 二：出库入库&emsp;&emsp;三：商品&emsp;&emsp;四：报表</h4></p>
+				<p><h4>1：新增公司&emsp;&emsp;1：新增入库&emsp;&emsp;1：新增商品&emsp;&emsp;1：出库、入库报表</h4></p>
+				<p><h4>2：查看公司&emsp;&emsp;2：查看入库&emsp;&emsp;2：查看商品&emsp;&emsp;2：库存、库位报表</h4></p>
+				<p><h4>3：新增用户&emsp;&emsp;3：新增出库&emsp;&emsp;3：新增种类&emsp;&emsp;3：运营、结算报表</h4></p>
+				<p><h4>4：新增公司&emsp;&emsp;4：查看出库&emsp;&emsp;4：查看品牌&emsp;&emsp;4：新增自定义报表</h4></p>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+</body>
+</html>

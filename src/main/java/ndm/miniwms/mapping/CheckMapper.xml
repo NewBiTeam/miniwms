@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.CheckMapper">
+
+	<select id="selectCompanyDetailsName" parameterType="String" resultType="ndm.miniwms.pojo.CompanyDetails">
+	select * from company_details where name = #{name}
+	</select>
+	
+	<select id="selectWarehouseName" parameterType="String" resultType="ndm.miniwms.pojo.Warehouse">
+	select * from company_details where name = #{name}
+	</select>
+	
+	<select id="selectSupplierDetailsName" parameterType="String" resultType="ndm.miniwms.pojo.SupplierDetails">
+	select * from company_details where name = #{name}
+	</select>
+	
+	<select id="selectLocationDetailsName" parameterType="String" resultType="ndm.miniwms.pojo.LocationDetails">
+	select * from company_details where name = #{name}
+	</select>
+	
+	<select id="selectBrandDetailsName" parameterType="String" resultType="ndm.miniwms.pojo.BrandDetails">
+	select * from company_details where name = #{name}
+	</select>
+	
+	<select id="selectStockItemName" parameterType="String" resultType="ndm.miniwms.pojo.StockItem">
+	select * from company_details where name = #{name}
+	</select>
+	
+	<select id="selectConsigneeDetailsName" parameterType="String" resultType="ndm.miniwms.pojo.ConsigneeDetails">
+	select * from company_details where name = #{name}
+	</select>
+	
+	<select id="selectCompanyUserName" parameterType="String" resultType="ndm.miniwms.pojo.CompanyUser">
+	select * from company_details where username = #{username}
+	</select>
+	
+	<select id="selectCategoryDetailsName" parameterType="String" resultType="ndm.miniwms.pojo.CategoryDetails">
+	select * from company_details where name = #{name}
+	</select>
+	
+
+</mapper>

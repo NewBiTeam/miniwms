@@ -1,0 +1,135 @@
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <script type="text/javascript">
+	$(document).ready(function() {
+		$('#submit').click(function() {
+			$.post('../stockItem/add', {
+				SKU : $('#SKU').val(),
+				name : $('#name').val(),
+				barcode : $('#barcode').val(),
+				weight : $('#weight').val(),
+				volume : $('#volume').val(),
+				categoryName : $('#categoryName').val(),
+				brandName : $('#brandName').val(),
+				UOM : $('#UOM').val(),
+				hazardFlagName : $('#hazardFlagName').val()
+			}).done(function() {
+				location.href = 'mian.html';
+			}).fail(ajaxErrorHandle);
+		});
+	})
+	
+	$(document).ready(function() {
+		var jqXhr = $.get('/MiniWms/category/all').done(function(data) {
+			if (data) {
+				$.each(data, function(i, e) {
+					$option=$('<option/>').text(e.name);	
+					$option.appendTo($('#categoryName'));
+				})
+			}
+		})
+	});
+
+	$(document).ready(function() {
+		var jqXhr = $.get('/MiniWms/brand/all').done(function(data) {
+			if (data) {
+				$.each(data, function(i, e) {
+					$option=$('<option/>').text(e.name);	
+					$option.appendTo($('#brandName'));
+				})
+			}
+		})
+	});
+</script>
+</head>
+<body>
+<div class="container">    
+    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">商品信息</div>
+                <div style="float:right; font-size: 85%; position: relative; top:-10px"><a href="main.html">返回首页</a>&emsp; <a href="#" onclick="history.go(-1);">上一页</a></div>
+            </div>  
+            <div class="panel-body" >
+                <form>
+                    <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
+                            
+
+                    <form>
+                        <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
+                        <div id="div_id_select" class="form-group required">
+                            <label for="name" class="control-label col-md-4  requiredField">商品SKU<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md  textinput textInput form-control" id="SKU" name="SKU" maxlength="30" placeholder="请输入商品的SKU" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_name" class="form-group required">
+                            <label for="name" class="control-label col-md-4  requiredField">名称<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md emailinput form-control" id="name" name="name" placeholder="请输入商品的名称" style="margin-bottom: 10px" type="text" />
+                            </div>     
+                        </div>
+                        <div id="div_id_barcode" class="form-group required">
+                            <label for="name" class="control-label col-md-4  requiredField">条形码<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                <input class="input-md textinput textInput form-control" id="barcode" name="barcode" placeholder="请输入商品的条形码" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_weight" class="form-group required">
+                             <label for="name" class="control-label col-md-4  requiredField">重量<span class="asteriskField">*</span> </label>
+                             <div class="controls col-md-8 ">
+                                <input class="input-md textinput textInput form-control" id="weight" name="weight" placeholder="请输入商品的重量" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_volume" class="form-group required"> 
+                            <label for="name" class="control-label col-md-4  requiredField">体积<span class="asteriskField">*</span> </label> 
+                            <div class="controls col-md-8 "> 
+                                <input class="input-md textinput textInput form-control" id="volume" name="volume" placeholder="请输入商品的体积" style="margin-bottom: 10px" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_categoryName" class="form-group required"> 
+                            <label for="name" class="control-label col-md-4  requiredField">种类<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <select class="input-md textinput textInput form-control" id="categoryName" name="categoryName"placeholder="请输入商品的种类" style="margin-bottom: 10px" type="text" >
+								</select>
+                            </div>
+                        </div> 
+                        <div id="contactFax" class="form-group required">
+                            <label for="contactFax" class="control-label col-md-4  requiredField">品牌<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 "> 
+                                 <select class="input-md textinput textInput form-control" id="brandName" name="brandName"placeholder="请输入商品的品牌" style="margin-bottom: 10px" type="text" >
+                          		 </select>
+                            </div>
+                        </div> 
+                        <div id="name" class="form-group required">
+                            <label for="name" class="control-label col-md-4  requiredField">计量单位<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md textinput textInput form-control" id="UOM" name="UOM"placeholder="请输入商品的UOM" style="margin-bottom: 10px" type="text" />
+                            </div> 
+                        </div>
+                        <div id="contactMsn" class="form-group required">
+                            <label for="contactMsn" class="control-label col-md-4  requiredField">是否危险品<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <select class="input-md textinput textInput form-control" id="hazardFlagName" name="hazardFlagName" placeholder="请输入是或否" style="margin-bottom: 10px" type="text" >
+                           		 <option selected="selected">是</option>
+								 <option>否</option>
+                           		 </select>
+                            </div> 
+                        </div>
+       
+                        <div class="form-group"> 
+                            <div class="aab controls col-md-4 "></div>
+                            <div class="controls col-md-8 ">
+                                <input type="submit" value="提交" class="btn btn-primary btn btn-info" id="submit" />
+                            </div>
+                        </div> 
+                            
+                    </form>
+
+                </form>
+            </div>
+        </div>
+    </div> 
+</div>       
+</body>

@@ -1,0 +1,28 @@
+<meta charset="utf-8">
+<table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+</table>
+<script>
+	$('#example').DataTable( {
+      /* "ajax": {
+      	url:"/MiniWms/batchImport/company",
+      	dataSrc:function(data){return data;}
+      }, */
+      "processing":true,
+      "serverSide":true,
+      "ajax":"/MiniWms/location/page",
+      "columns" : [
+          { "data": "name" ,title:"名称"},
+          { "data": "xcoord" ,title:"xcoord"},
+          { "data": "ycoord" ,title:"ycoord"},
+          { "data": "zcoord" ,title:"zcoord"},
+          { "data": "companyDetails" ,title:"公司名称",render:function (data){
+        	  if(!data) return ''
+     		   else return data.name;
+			}},
+          { "data": "warehouse" ,title:"仓库名称", render:function (data){
+        	  if(!data) return ''
+      		   else return data.name;
+			}
+          }]
+  } );
+</script>

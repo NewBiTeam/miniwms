@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.CompanyUserMapper">
+	<resultMap id="BaseResultMap" type="ndm.miniwms.pojo.CompanyUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="company_id" property="companyId" jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="all" resultMap="BaseResultMap">
+		select * from company_user
+	</select>
+	
+	<select id="selectById" resultMap="BaseResultMap">
+		select * from company_user where id = #{id}
+	</select>
+	
+	<select id="selectTab" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+	select * from company_user where 1 = 1
+	</select>
+	
+	<delete id="delById" parameterType="java.lang.Integer">
+		delete from company_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<update id="update" parameterType="ndm.miniwms.pojo.CompanyUser">
+		update company_user
+		set created=#{created},modified=#{modified},username=#{username},
+		password=#{password},address=#{address},tel=#{tel},cname=#{cname},
+		company_id=#{companyId}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<insert id="add" parameterType="ndm.miniwms.pojo.CompanyUser">
+		insert into company_user
+		(created, modified, username, password, address,
+		tel, cname, company_id
+		) values (#{created}, #{modified}, #{username},
+		#{password},
+		#{address}, #{tel}, #{cname}, #{companyId})
+	</insert>
+</mapper>

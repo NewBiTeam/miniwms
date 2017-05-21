@@ -1,0 +1,17 @@
+<meta charset="utf-8">
+<table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%">
+</table>
+<script>
+	$('#example').DataTable( {
+      /* "ajax": {
+      	url:"/MiniWms/batchImport/company",
+      	dataSrc:function(data){return data;}
+      }, */
+      "processing":true,
+      "serverSide":true,
+      "ajax":"/MiniWms/brand/page",
+      "columns" : [
+          { "data": "name" ,title:"name"}
+      ]
+  } );
+</script>

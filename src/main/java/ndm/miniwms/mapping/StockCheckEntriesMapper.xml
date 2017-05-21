@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.StockCheckEntriesMapper">
+
+	<resultMap id="BaseResultMap" type="ndm.miniwms.pojo.StockCheckEntries">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="check_id" property="checkId" jdbcType="INTEGER" />
+		<result column="inventory_id" property="inventoryId" jdbcType="INTEGER" />
+		<result column="check_quantity" property="checkQuantity"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="all" resultMap="BaseResultMap">
+		select * from stock_check_entries
+	</select>
+
+	<delete id="delById" parameterType="java.lang.Integer">
+		delete from
+		stock_check_entries
+		where
+		id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<update id="update" parameterType="ndm.miniwms.pojo.StockCheckEntries">
+		update stock_check_entries set
+		check_id = #{checkId},inventory_id = #{inventoryId},quantity =
+		#{quantity},
+		check_quantity = #{checkQuantity} where id = #{id}
+	</update>
+
+	<insert id="add" parameterType="ndm.miniwms.pojo.StockCheckEntries">
+		insert into stock_check_entries
+		(check_id,inventory_id,quantity,check_quantity)
+		values
+		(#{checkId},#{inventoryId},#{quantity},#{checkQuantity})
+	</insert>
+</mapper>

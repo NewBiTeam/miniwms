@@ -1,0 +1,212 @@
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	$('#submit').click(function() {
+	  $.post('../stockOut/add', {
+	    consigneeId : $('#consigneeId').val(),
+	    date : $('#date').val(),
+	    status : $('#status').val(),
+	    companyId : $('#companyId').val(),
+	    userId : $('#userId').val(),
+	    billnumber : $('#billnumber').val(),
+	    description : $('#description').val(),
+	    customerBillnumber : $('#customerBillnumber').val(),
+	    stockOutEntriesList : entries
+	  }).done(function() {
+		  location.href = 'main.html';
+	  }).fail();
+  })
+  var jqXhr = $.get('../stockInventory/all').done(function(data) {
+	  if (data) {
+		  $.each(data, function(i, e) {
+			  $option = $("<option value = "+e.id+"/>").text(e.stockItem.name);
+			  $option.appendTo("#stockOutEntriesList");
+		  })
+	  }
+  });
+</script>
+</head>
+<body>
+	<a href="main.html">首页</a>
+	<div class="container">
+		<div id="signupbox" style="margin-top: 50px"
+			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">公司信息</div>
+					<div
+						style="float: right; font-size: 85%; position: relative; top: -10px">
+						<a href="#" onclick="history.go(-1);">上一页</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<form>
+						<input type='hidden' name='csrfmiddlewaretoken'
+							value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
+						<form>
+							<input type='hidden' name='csrfmiddlewaretoken'
+								value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
+							<div id="div_id_consigneeDetails" class="form-group required">
+								<label for="consigneeDetails"
+									class="control-label col-md-4  requiredField">收货人<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md  textinput textInput form-control"
+										id="consigneeDetails" maxlength="30" name="consigneeDetails"
+										placeholder="例：张三" style="margin-bottom: 10px" type="text" />
+								</div>
+							</div>
+							<div id="div_id_date" class="form-group required">
+								<label for="date" class="control-label col-md-4  requiredField">日期<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md emailinput form-control" id="date"
+										name="date" placeholder="date" style="margin-bottom: 10px"
+										type="text" />
+								</div>
+							</div>
+							<div id="div_id_status" class="form-group required">
+								<label for="status"
+									class="control-label col-md-4  requiredField">状态<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md textinput textInput form-control"
+										id="status" name="status" placeholder="status"
+										style="margin-bottom: 10px" type="text" />
+								</div>
+							</div>
+							<div id="div_id_companyDetails" class="form-group required">
+								<label for="companyDetails"
+									class="control-label col-md-4  requiredField">公司名称<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md textinput textInput form-control"
+										id="companyDetails" name="companyDetails"
+										placeholder="companyDetails" style="margin-bottom: 10px"
+										type="text" />
+								</div>
+							</div>
+							<div id="div_id_companyUser" class="form-group required">
+								<label for="companyUser"
+									class="control-label col-md-4  requiredField">使用者<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md textinput textInput form-control"
+										id="companyUser" name="companyUser" placeholder="使用者"
+										style="margin-bottom: 10px" />
+								</div>
+							</div>
+							<div id="div_id_billnumber" class="form-group required">
+								<label for="billnumber"
+									class="control-label col-md-4  requiredField">下单编号<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md textinput textInput form-control"
+										id="billnumber" name="billnumber" placeholder="下单编号"
+										style="margin-bottom: 10px" />
+								</div>
+							</div>
+							<div id="div_id_description" class="form-group required">
+								<label for="description"
+									class="control-label col-md-4  requiredField">描述<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md textinput textInput form-control"
+										id="description" name="description" placeholder="描述"
+										style="margin-bottom: 10px" />
+								</div>
+							</div>
+							<div id="div_id_customerBillnumber" class="form-group required">
+								<label for="customerBillnumber"
+									class="control-label col-md-4  requiredField">客户下单编号<span
+									class="asteriskField">*</span>
+								</label>
+								<div class="controls col-md-8 ">
+									<input class="input-md textinput textInput form-control"
+										id="customerBillnumber" name="customerBillnumber"
+										placeholder="客户下单编号" style="margin-bottom: 10px" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="aab controls col-md-4 "></div>
+								<div class="controls col-md-8 ">
+									<input type="submit" value="提交"
+										class="btn btn-primary btn btn-info" id="submit" />
+								</div>
+							</div>
+						</form>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="div_id_stockOutEntriesList" class="form-group required">
+		<label for="stockOutEntriesList"
+			class="control-label col-md-4  requiredField">库存<span
+			class="asteriskField">*</span>
+		</label>
+		<div class="controls col-md-8 ">
+			<select class="input-md textinput textInput form-control"
+				id="stockOutEntriesList" name="stockOutEntriesList" placeholder="库存"
+				style="margin-bottom: 10px">
+				<option>请选择</option>
+			</select>
+		</div>
+	</div>
+	<div id="div_id_stockOutEntries" class="form-group required">
+		<label for="stockOutEntries"
+			class="control-label col-md-4  requiredField">数量<span
+			class="asteriskField">*</span>
+		</label>
+		<div class="controls col-md-8 ">
+			<input class="input-md textinput textInput form-control"
+				id="stockOutEntries" name="stockOutEntries" placeholder="1"
+				style="margin-bottom: 10px" />
+		</div>
+	</div>
+	<div id="div_id_stockOutEntries" class="form-group required">
+		<button id="addEntry">添加</button>
+	</div>
+	<table id="example"
+		class="table table-striped table-bordered dt-responsive nowrap"
+		width="100%">
+	</table>
+	<script type="text/javascript">
+		var $table, entries=[];
+		$('#addEntry').click(function() {
+			var find = false;
+			if(entries){
+			$.each(entries ,function(i,e){
+				if(parseInt($('#stockOutEntriesList').val())== e.inventoryId){
+					e.quantity += parseInt($('#stockOutEntries').val());
+					find = true;
+				}}
+			)}
+			if(!find){
+			entries.push({inventoryId: $('#stockOutEntriesList').val(), quantity: parseInt($('#stockOutEntries').val())})
+			}
+			if(!$table) {
+				$table = $('#example').DataTable({
+					data: entries,
+					columns: [
+						{data: 'inventoryId', title: '库存id'},
+						{data: 'quantity', title: '数量'}
+					]
+				});
+			}else {
+				$table.clear();
+				$table.rows.add(entries);
+				$table.draw();
+			}
+		})
+	</script>
+</body>

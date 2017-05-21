@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbook>
+	<worksheet name="工作表1">
+		<section startRow="0" endRow="1"></section>
+		<loop startRow="2" endRow="2" items="warehouseVOs" var="warehouseVO"
+			varType="ndm.miniwms.vo.WarehouseVO">
+			<section startRow="2" endRow="2">
+				<mapping row="2" col="0">warehouseVO.name</mapping>
+				<!-- <mapping row="2" col="1">warehouseVO.anothername</mapping> -->
+				<mapping row="2" col="1">warehouseVO.address</mapping>
+				<mapping row="2" col="2">warehouseVO.description</mapping>
+				<mapping row="2" col="3">warehouseVO.contactName</mapping>
+				<mapping row="2" col="4">warehouseVO.contactTel</mapping>
+				<mapping row="2" col="5">warehouseVO.contactFax</mapping>
+				<mapping row="2" col="6">warehouseVO.contactEmail</mapping>
+				<mapping row="2" col="7">warehouseVO.contactQq</mapping>
+				<mapping row="2" col="8">warehouseVO.contactMsn</mapping>
+				<mapping row="2" col="9">warehouseVO.contactDesc</mapping>
+			</section>
+			<loopbreakcondition>
+				<rowcheck offset="0">
+					<cellcheck offset="0"></cellcheck>
+				</rowcheck>
+			</loopbreakcondition>
+		</loop>
+	</worksheet>
+</workbook>  

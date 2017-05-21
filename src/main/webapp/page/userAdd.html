@@ -1,0 +1,131 @@
+<head>
+<meta charset="utf-8">
+<!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+<title>myforms - Bootsnipp.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<div class="container">
+
+		<div id="signupbox" style="margin-top: 50px"
+			class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">收货人添加</div>
+					<div
+						style="float: right; font-size: 85%; position: relative; top: -10px">
+						<a id="signinlink" href="userView.html">查看</a>
+					</div>
+				</div>
+				<div class="panel-body">
+					<input type='hidden' name='csrfmiddlewaretoken'
+						value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' /> <input type='hidden'
+						name='csrfmiddlewaretoken'
+						value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
+					<div id="div_username" class="form-group required">
+						<label for="username"
+							class="control-label col-md-4  requiredField"> 用户名<span
+							class="asteriskField">*</span>
+						</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textInput form-control" id="username"
+								maxlength="30" name="username" placeholder="用户名"
+								style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+					<div id="div_password" class="form-group required">
+						<label for="password"
+							class="control-label col-md-4  requiredField"> 密码<span
+							class="asteriskField">*</span>
+						</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md  textInput form-control" id="password"
+								maxlength="30" name="password" placeholder="密码"
+								style="margin-bottom: 10px" type="password" />
+						</div>
+					</div>
+					<div id="div_address" class="form-group required">
+						<label for="address" class="control-label col-md-4  requiredField">
+							地址<span class="asteriskField">*</span>
+						</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md  textInput form-control" id="address"
+								maxlength="30" name="address" placeholder="地址"
+								style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+					<div id="div_tel" class="form-group required">
+						<label for="tel" class="control-label col-md-4  requiredField">
+							电话<span class="asteriskField">*</span>
+						</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md  form-control" id="tel" name="tel"
+								placeholder="电话" style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+					<div id="div_cname" class="form-group required">
+						<label for="cname" class="control-label col-md-4  requiredField">
+							别名<span class="asteriskField">*</span>
+						</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md  textInput form-control" id="cname"
+								maxlength="30" name="cname" placeholder="别名"
+								style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+					<div id="div_companyId" class="form-group required">
+						<label for="companyId"
+							class="control-label col-md-4  requiredField"> 公司<span
+							class="asteriskField">*</span>
+						</label>
+						<div class="controls col-md-8 ">
+							<select class="input-md  textInput form-control" maxlength="30"
+								id="companyId" style="margin-bottom: 10px">
+								<option>请选择</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="aab controls col-md-4 "></div>
+						<div class="controls col-md-8 ">
+							<input type="submit" value="增加"
+								class="btn btn-primary btn btn-info" id="submit" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var jqXhr = $.get('/MiniWms/company/all').done(function(data) {
+				if (data) {
+					$.each(data, function(i, e) {
+						$option = $("<option value=" + e.id + "/>").text(e.name);
+						$option.appendTo($('#companyId'));
+					})
+				}
+			})
+		});
+
+		$(document).ready(function() {
+			$('#submit').click(function() {
+				$.post('../user/add', {
+					username : $('#username').val(),
+					password : $('#password').val(),
+					address : $('#address').val(),
+					tel : $('#tel').val(),
+					cname : $('#cname').val(),
+					companyId : $('#companyId').val()
+				}).done(function(data) {
+					localStorage.clear();
+					alert("添加成功！");
+					location.href = 'main.html'
+				}).fail(function() {
+					alert("添加失败！");
+				});
+			});
+		})
+	</script>
+</body>

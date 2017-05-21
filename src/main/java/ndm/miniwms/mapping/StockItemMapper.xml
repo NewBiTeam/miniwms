@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ndm.miniwms.dao.StockItemMapper">
+	<resultMap id="BaseResultMap" type="ndm.miniwms.pojo.StockItem">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="SKU" property="SKU" jdbcType="VARCHAR" />
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<result column="modified" property="modified" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="barcode" property="barcode" jdbcType="VARCHAR" />
+		<result column="weight" property="weight" jdbcType="VARCHAR" />
+		<result column="volume" property="volume" jdbcType="VARCHAR" />
+		<result column="brand_id" property="brandId" jdbcType="INTEGER" />
+		<result column="category_id" property="categoryId" jdbcType="INTEGER" />
+		<result column="UOM" property="UOM" jdbcType="VARCHAR" />
+		<result column="hazard_flag" property="hazardFlag" jdbcType="BOOLEAN" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="company_id" property="companyId" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="ndm.miniwms.pojo.StockItem" id="BrandDetailsBaseResultMap">
+		<id property="id" column="id" />
+		<result property="brandId" column="brand_id" />
+		<result property="categoryId" column="category_id" />
+		<result property="hazardFlag" column="hazard_flag" />
+		<association property="brandDetails" column="brand_id"
+			select="getBrandDetails" />
+		<association property="categoryDetails" column="category_id"
+			select="getCategoryDetails" />
+	</resultMap>
+
+	<select id="all" resultMap="BaseResultMap">
+		select * from stock_item
+	</select>
+
+<!-- 分页查询 -->
+	<select id="selectStockItem" resultMap="BrandDetailsBaseResultMap">
+		select * from stock_item
+	</select>
+	
+	<select id="getBrandDetails" parameterType="java.lang.Integer"
+		resultType="ndm.miniwms.pojo.BrandDetails">
+		select * from brand_details where id=#{id}
+	</select>
+	<select id="getCategoryDetails" parameterType="java.lang.Integer"
+		resultType="ndm.miniwms.pojo.CategoryDetails">
+		select * from category_details where id=#{id}
+	</select>
+
+	<!--根據id查詢商品 -->
+	<select id="selectById" resultMap="BaseResultMapStockItemPhoto"
+		parameterType="java.lang.Integer">
+		select * from stock_item where id = #{id}
+	</select>
+	<resultMap type="ndm.miniwms.pojo.StockItem" id="BaseResultMapStockItemPhoto">
+		<id property="id" column="id" />
+		<collection property="StockItemPhotoList" ofType="ndm.miniwms.pojo.StockItemPhoto"
+			column="id" select="getStockItemPhotoList">
+		</collection>
+	</resultMap>
+	<select id="getStockItemPhotoList" parameterType="java.lang.Integer"
+		resultType="ndm.miniwms.pojo.StockItemPhoto">
+		select * from stock_item_photo where item_id= #{itemId}
+	</select>
+
+	<delete id="delById" parameterType="java.lang.Integer">
+		delete from stock_item where
+		id = #{id}
+	</delete>
+
+	<insert id="add" parameterType="ndm.miniwms.pojo.StockItem">
+		insert into stock_item
+		(SKU,created,modified,name,barcode,weight,volume,brand_id,category_id,UOM,hazard_flag,description,company_id)
+		values(#{SKU},#{created},#{modified},#{name},#{barcode},#{weight},#{volume},#{brandId},#{categoryId},#{UOM},#{hazardFlag},#{description},#{companyId})
+	</insert>
+
+	<update id="update" parameterType="ndm.miniwms.pojo.StockItem">
+		update stock_item
+		set
+		SKU=#{SKU},created=#{created},modified=#{modified},name=#{name},
+		barcode=#{barcode},
+		weight=#{weight},
+		volume=#{volume},
+		brand_id=#{brandId},
+		category_id=#{categoryId},
+		UOM=#{UOM},
+		hazard_flag=#{hazardFlag},
+		description=#{description},
+		company_id=#{companyId}
+		where id = #{id}
+	</update>
+</mapper>
